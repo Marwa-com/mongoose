@@ -19,12 +19,14 @@ router.post('/ManyPerson',(req,res)=> {
     err ?  console.log(err) : res.send('ManyPerson was created')
 })  
 })
+
 //Use model.find() to Search Your Database 
  router.get('/:name',(req,res)=> {
     person.find({name:req.params.name},(err,data)=> { 
         err ?  console.log(err) : res.json(data)
 })
 })
+
 //Use model.findOne() to Find just one person 
  router.get('/getfavorite/:favoriteFoods',(req,res)=> {
    console.log('get favorite')
@@ -32,13 +34,15 @@ router.post('/ManyPerson',(req,res)=> {
         err ?  console.log(err) : res.json(data)
 })
 }) 
+
 //Use model.findById() to Search Your Database By _id
 router.get('/:id',(req,res)=> {
     person.findById({_id:req.params.id},(err,data)=> { 
         err ?  console.log(err) : res.json(data)
 })
 })
-//Perform Classic Updates by Running Find, Edit, then Save (No)
+
+//Perform Classic Updates by Running Find, Edit, then Save 
  
   router.put('/:id',async (req,res)=>{
    
@@ -58,18 +62,20 @@ router.get('/:id',(req,res)=> {
 
  router.put('/update/:name',(req,res)=> {
   
-  //var ageToSet = 20;
-  person.findOneAndUpdate({name:req.params.name},{$set: {"age":req.body.age}},{returnNewDocument : true}, function(err, doc){
+  var ageToSet = 20;
+  person.findOneAndUpdate({name:req.params.name},{$set: {"age":ageToSet}},{returnNewDocument : true}, function(err, doc){
   if(err){return console.log("Something wrong when updating record!");}
   res.json(doc);                  
         })
     
 })  
+
 //Delete One Document Using model.findByIdAndRemove
 router.delete('/:id',(req,res)=> {
     person.findByIdAndRemove({_id:req.params.id},(err,data)=> { 
         err ?  console.log(err) : res.json(data)
     }) })
+    
 // Delete Many Documents with model.remove
 router.delete('delname/:name',(req,res)=> {
   person.remove(req.params.name,(err,data)=> { 
